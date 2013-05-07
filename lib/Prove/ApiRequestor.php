@@ -174,12 +174,13 @@ class Prove_ApiRequestor
       $opts[CURLOPT_SSL_VERIFYPEER] = false;
 
     curl_setopt_array($curl, $opts);
-    /* //FOR DEBUGGING
+    //FOR DEBUGGING
     foreach ($opts as $i){
 			echo "$i \n";
-    }*/
+    }
     $rbody = curl_exec($curl);
 
+    echo $rbody."\n";
     $errno = curl_errno($curl);
     if ($errno == CURLE_SSL_CACERT ||
 				$errno == CURLE_SSL_PEER_CERTIFICATE ||
