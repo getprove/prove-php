@@ -181,7 +181,7 @@ class Prove_ApiRequestor
     }*/
     $rbody = curl_exec($curl);
 
-    echo $rbody."\n";
+    //echo $rbody."\n";
     $errno = curl_errno($curl);
     if ($errno == CURLE_SSL_CACERT ||
 				$errno == CURLE_SSL_PEER_CERTIFICATE ||

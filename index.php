@@ -14,34 +14,47 @@ $id = "some id string here";
 //testVerifyPin($id); //not working yet
 
 function testVerifyPin($id){
-	echo "Testing verifyPin\n";
+	echo "Testing verifyPin<br />";
 	//pin for testApiKey is always 1337
 	$pin= 1337;
 	$verify = Prove_Verification::verifyPin(array('id' => $id,'pin' =>$pin));
 	echo $verify;
-	echo "\n";
+	echo "<br />";
 }
 
 function testRetrieve($id){
-	echo "Testing retrieve\n";
+	echo "Testing retrieve<br />";
 	$verify = Prove_verification::retrieve($id);
 	echo $verify;
-	echo "\n";
+	echo "<br />";
 }
 
 function testCreate(){ //post and display a new entry
-	echo "Testing create\n";
+	echo "Testing create<br />";
 	$myNumber = array('tel' => 6619937556);
 	$verify = Prove_Verification::create($myNumber);
 	echo $verify;
-	echo "\n";
+	echo "<br />";
 }
 
 function testAll(){ //get and display entries
-	echo "testing all\n";
+	echo "testing all"."<br />";
 	$verify = Prove_Verification::all();
+	echo "Full return: <br />";
 	foreach ($verify as $i){
-		echo $i."\n";
+		echo $i."<br />";
 	}
-	echo "\n";
+	echo "<br /><br />";
+	echo "<table border=1><tr><td>Phone number</td><td>Verified</td></tr>";
+	foreach ($verify as $i=>$v){
+		echo "<tr><td>";
+		echo $v['tel'];
+		echo "</td><td>";
+		if($v['verified']) 
+			echo "true";
+		else
+			echo "false";
+		echo "</td></tr>";
+	}
+	echo "</table><br />";
 }

@@ -38,15 +38,14 @@ abstract class Prove_Util
   public static function convertToProveObject($resp, $apiKey)
   {
     $types = array(
-      'charge' => 'Prove_Charge',
-		  'customer' => 'Prove_Customer',
-      'list' => 'Prove_List',
-		  'invoice' => 'Prove_Invoice',
-		  'invoiceitem' => 'Prove_InvoiceItem',
-      'event' => 'Prove_Event',
-		  'transfer' => 'Prove_Transfer',
-      'plan' => 'Prove_Plan',
-      'recipient' => 'Prove_Recipient'
+      'tel' => 'Prove_tel',
+		  'updated' => 'Prove_Updated',
+      'created' => 'Prove_Created',
+		  'test' => 'Prove_test',
+		  'verified' => 'Prove_Verified',
+      'call' => 'Prove_Call',
+		  'text' => 'Prove_Text',
+      'id' => 'Prove_Id',
     );
     if (self::isList($resp)) {
       $mapped = array();
