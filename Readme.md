@@ -31,3 +31,13 @@ Prove_Verification::create( array('tel'=>1234567890) ); - post and return a new 
 Prove_verification::pin(array('id'=>id,'pin'=>pin)) - Verify an entry matching id using pin
 Prove_verification::retrieve(id) - Return a single entry matching id
 ```
+
+# Values
+
+- tel 		string		-> phone number
+- updated 	timestamp	-> last update
+- created	timestamp	-> created
+- test		bool		-> using testApi
+- verified	bool		-> pin has been entered
+- call		bool
+- text		bool
