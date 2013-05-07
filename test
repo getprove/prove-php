@@ -1,0 +1,7 @@
+<?php
+
+require_once('~/dev/php/prove-php/lib/Prove.php');
+
+Prove::setApiKey('test_iKpe4EvKGzh3C6BM2ahJ71JxAXA');
+    $verifications = Prove_Verification::list();
+    echo $verifications

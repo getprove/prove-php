@@ -1,6 +1,6 @@
 <?php
 
-class Prove_Verification extends Prove_ApiResource
+class Prove_Charge extends Prove_ApiResource
 {
   public static function constructFrom($values, $apiKey=null)
   {
@@ -25,12 +25,22 @@ class Prove_Verification extends Prove_ApiResource
     $class = get_class();
     return self::_scopedCreate($class, $params, $apiKey);
   }
-
+    
   public function save()
   {
     $class = get_class();
     return self::_scopedSave($class);
   }
+
+  public function refund($params=null)
+  {
+    $requestor = new Prove_ApiRequestor($this->_apiKey);
+    $url = $this->instanceUrl() . '/refund';
+    list($response, $apiKey) = $requestor->request('post', $url, $params);
+    $this->refreshFrom($response, $apiKey);
+    return $this;
+  }
+
   public function capture($params=null)
   {
     $requestor = new Prove_ApiRequestor($this->_apiKey);
@@ -39,8 +49,13 @@ class Prove_Verification extends Prove_ApiResource
     $this->refreshFrom($response, $apiKey);
     return $this;
   }
-  /*curl https://getprove.com/api/v1/verify \
-      -u test_iKpe4EvKGzh3C6BM2ahJ71JxAXA: \
-      -d tel=1234567890*/
 
+  public function updateDispute($params=null)
+  {
+    $requestor = new Prove_ApiRequestor($this->_apiKey);
+    $url = $this->instanceUrl() . '/dispute';
+    list($response, $apiKey) = $requestor->request('post', $url, $params);
+    $this->refreshFrom(array('dispute' => $response), $apiKey, true);
+    return $this->dispute;
+  }
 }
