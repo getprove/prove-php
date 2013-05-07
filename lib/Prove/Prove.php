@@ -3,6 +3,7 @@
 abstract class Prove
 {
   public static $apiKey;
+  public static $apiKeyPassword;
   public static $apiBase = 'https://getprove.com';
   public static $apiVersion = null;
   public static $verifySslCerts = true;
@@ -16,6 +17,16 @@ abstract class Prove
   public static function setApiKey($apiKey)
   {
     self::$apiKey = $apiKey;
+  }
+  
+  public static function getApiKeyPassword()
+  {
+    return self::$apiKeyPassword;
+  }
+
+  public static function setApiKeyPassword($apiKeyPassword)
+  {
+    self::$apiKeyPassword = $apiKeyPassword;
   }
 
   public static function getApiVersion()

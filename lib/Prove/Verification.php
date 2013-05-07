@@ -31,10 +31,10 @@ class Prove_Verification extends Prove_ApiResource
     $class = get_class();
     return self::_scopedSave($class);
   }
-  public function verifyPin($id, $pin, $apiKey=null)
+  public function verifyPin($params=null, $apiKey=null)
   {
 		$class = get_class();
-		return self::_scopedVerify($class, array('id' => $id, 'pin' => $pin),$apiKey);
+		return self::_scopedVerify($class, $params,$apiKey);
   }
   /*curl https://getprove.com/api/v1/verify \
       -u test_iKpe4EvKGzh3C6BM2ahJ71JxAXA: \

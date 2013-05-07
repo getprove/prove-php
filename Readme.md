@@ -27,10 +27,7 @@ Here's a quick example of integration:
 # API
 ```php
 Prove_Verification::all(); - return all verifications
-Prove_Verification::create( array('tel' => 1234567890) ); - post and return a new verification
-```
-TODO:
-```php
+Prove_Verification::create( array('tel'=>1234567890) ); - post and return a new verification
 Prove_verification::pin(id, pin) - Verify a pin
 Prove_verification::retrieve(id) - Retrieve single verification
 ```

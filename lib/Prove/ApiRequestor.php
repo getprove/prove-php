@@ -105,7 +105,8 @@ class Prove_ApiRequestor
       $myApiKey = Prove::$apiKey;
     if (!$myApiKey)
       throw new Prove_AuthenticationError('No API key provided.  (HINT: set your API key using "Prove::setApiKey(<API-KEY>)".  You can generate API keys from the Prove web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.');
-
+		$myPassword = $this->_apiKeyPassword;
+		
     $absUrl = $this->apiUrl($url);
     $params = self::_encodeObjects($params);/*
     $langVersion = phpversion();
@@ -120,7 +121,7 @@ class Prove_ApiRequestor
                      'Authorization: Bearer ' . $myApiKey);
     if (Prove::$apiVersion)
       $headers[] = 'Prove-Version: ' . Prove::$apiVersion;*/
-    list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $headers, $params, $myApiKey);
+    list($rbody, $rcode) = $this->_curlRequest($meth, $absUrl, $headers, $params, $myApiKey, $myPassword);
     return array($rbody, $rcode, $myApiKey);
   }
 
@@ -138,7 +139,7 @@ class Prove_ApiRequestor
     return $resp;
   }
 
-  private function _curlRequest($meth, $absUrl, $headers, $params, $myApiKey)
+  private function _curlRequest($meth, $absUrl, $headers, $params, $myApiKey, $myPassword)
   {
     $curl = curl_init();
     $meth = strtolower($meth);
@@ -152,7 +153,7 @@ class Prove_ApiRequestor
     } else if ($meth == 'post') {
       $opts[CURLOPT_POST] = 1;
       $opts[CURLOPT_POSTFIELDS] = self::encode($params);
-    } else if ($meth == 'delete')  {
+		} else if ($meth == 'delete')  {
       $opts[CURLOPT_CUSTOMREQUEST] = 'DELETE';
       if (count($params) > 0) {
 				$encoded = self::encode($params);
@@ -168,16 +169,16 @@ class Prove_ApiRequestor
     $opts[CURLOPT_CONNECTTIMEOUT] = 30;
     $opts[CURLOPT_TIMEOUT] = 80;
     $opts[CURLOPT_HEADER] = false;
-    $opts[CURLOPT_USERPWD] = "$myApiKey:netdna";
+    $opts[CURLOPT_USERPWD] = "$myApiKey:$myPassword";
     
     if (!Prove::$verifySslCerts)
       $opts[CURLOPT_SSL_VERIFYPEER] = false;
 
     curl_setopt_array($curl, $opts);
-    //FOR DEBUGGING
+    /*/FOR DEBUGGING
     foreach ($opts as $i){
 			echo "$i \n";
-    }
+    }*/
     $rbody = curl_exec($curl);
 
     echo $rbody."\n";

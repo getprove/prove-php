@@ -77,13 +77,12 @@ abstract class Prove_ApiResource extends Prove_Object
     return Prove_Util::convertToProveObject($response, $apiKey);
   }
   
-  protected function _scopedVerify($class, $params, $apiKey = null)
+  protected function _scopedVerify($class, $params=null, $apiKey = null)
   {
-    $instance = new $class($params['id'], $apiKey);
-    $instance->refresh();
-    echo $instance."\n";
     $requestor = new Prove_ApiRequestor($apiKey);
     $url = self::classUrl($class);
+    $url = $url."/".$params['id']."/pin";
+    $params = array('pin' => $params['pin']);
     list($response, $apiKey) = $requestor->request('post', $url, $params);
     return Prove_Util::convertToProveObject($response, $apiKey);
   }
