@@ -33,4 +33,4 @@ TODO:
 ```php
 Prove_verification::pin(id, pin) - Verify a pin
 Prove_verification::retrieve(id) - Retrieve single verification
-```php
+```
